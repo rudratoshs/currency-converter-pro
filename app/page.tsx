@@ -1,101 +1,226 @@
-import Image from "next/image";
+"use client"
+import { Button } from "@/components/ui/button";
+import CurrencyExchange from "@/components/currency-exchange";
+import { ParallaxProvider, Parallax } from "react-scroll-parallax";
+import {
+  Globe2,
+  Zap,
+  Shield,
+  Clock,
+  CreditCard,
+  HeadphonesIcon,
+} from "lucide-react";
+import CurrencyTable from "@/components/currency-table";
 
-export default function Home() {
+export default function LandingPage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <ParallaxProvider>
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
+        <header className="bg-white/50 backdrop-blur-sm sticky top-0 z-50 border-b border-pink-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-8">
+                <div className="text-2xl font-bold bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">
+                  CurrencySwap
+                </div>
+                <nav className="hidden md:block">
+                  <ul className="flex space-x-8">
+                    <li>
+                      <a
+                        href="#exchange"
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        Exchange
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#features"
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        Features
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="#about"
+                        className="text-gray-600 hover:text-gray-900"
+                      >
+                        About
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <section className="text-center mb-16">
+            <Parallax y={[-20, 20]} tagOuter="figure">
+              <h1 className="text-5xl font-bold bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text mb-6">
+                Exchange Currencies with Confidence
+              </h1>
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Fast, secure, and reliable currency exchange platform with
+                real-time rates and minimal fees
+              </p>
+            </Parallax>
+          </section>
+
+          <CurrencyExchange />
+
+          <CurrencyTable />
+
+          <section id="features" className="mt-24">
+            <Parallax y={[20, -20]} tagOuter="figure">
+              <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
+                Why Choose CurrencySwap?
+              </h2>
+            </Parallax>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <FeatureCard
+                icon={<Globe2 className="w-6 h-6 text-blue-500" />}
+                title="Global Coverage"
+                description="Access to over 150+ currencies worldwide with competitive exchange rates"
+              />
+              <FeatureCard
+                icon={<Zap className="w-6 h-6 text-yellow-500" />}
+                title="Instant Transfers"
+                description="Lightning-fast currency exchanges with immediate confirmation"
+              />
+              <FeatureCard
+                icon={<Shield className="w-6 h-6 text-green-500" />}
+                title="Secure Platform"
+                description="Bank-grade security measures to protect your transactions"
+              />
+              <FeatureCard
+                icon={<Clock className="w-6 h-6 text-purple-500" />}
+                title="24/7 Trading"
+                description="Exchange currencies any time, any day, from anywhere"
+              />
+              <FeatureCard
+                icon={<CreditCard className="w-6 h-6 text-indigo-500" />}
+                title="Multiple Payment Options"
+                description="Support for various payment methods including cards and bank transfers"
+              />
+              <FeatureCard
+                icon={<HeadphonesIcon className="w-6 h-6 text-pink-500" />}
+                title="Expert Support"
+                description="Dedicated customer support team available round the clock"
+              />
+            </div>
+          </section>
+        </main>
+
+        <footer id="about" className="bg-white mt-24 border-t border-pink-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                  About CurrencySwap
+                </h3>
+                <p className="text-gray-600">
+                  Your trusted partner for fast and secure currency exchanges
+                  worldwide.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                  Quick Links
+                </h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a
+                      href="#exchange"
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      Exchange Rates
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#features"
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      Features
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#about"
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-600 hover:text-gray-900"
+                    >
+                      Help Center
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                  Legal
+                </h3>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="text-gray-600 hover:text-gray-900">
+                      Privacy Policy
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-600 hover:text-gray-900">
+                      Terms of Service
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold mb-4 text-gray-800">
+                  Contact
+                </h3>
+                <ul className="space-y-2">
+                  <li className="text-gray-600">support@currencyswap.com</li>
+                  <li className="text-gray-600">+1 (555) 123-4567</li>
+                </ul>
+                <div className="mt-4 flex space-x-4">
+                  <a href="#" className="text-blue-500 hover:text-blue-600">
+                    Twitter
+                  </a>
+                  <a href="#" className="text-blue-700 hover:text-blue-800">
+                    LinkedIn
+                  </a>
+                  <a href="#" className="text-blue-600 hover:text-blue-700">
+                    Facebook
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 pt-8 border-t border-pink-100 text-center text-gray-600">
+              © {new Date().getFullYear()} CurrencySwap. All rights reserved.
+            </div>
+          </div>
+        </footer>
+      </div>
+    </ParallaxProvider>
+  );
+}
+
+function FeatureCard({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+  return (
+    <div className="bg-white rounded-2xl shadow-lg p-6 hover:scale-105 transition-transform border border-pink-100">
+      <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center mb-4">
+        {icon}
+      </div>
+      <h3 className="text-xl font-semibold mb-2 text-gray-800">{title}</h3>
+      <p className="text-gray-600">{description}</p>
     </div>
   );
 }
