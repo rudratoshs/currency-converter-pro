@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { LineChart, Line, ResponsiveContainer, YAxis, XAxis, Tooltip, CartesianGrid } from "recharts"
 import { fetchExchangeRates, fetchAllCurrencies, fetchHistoricalRates, fetchBTCRates } from "@/lib/api"
-import type {ConversionResult } from "@/types/currency"
+import type { ConversionResult } from "@/types/currency"
 import { motion, AnimatePresence } from "framer-motion"
 import { subDays, format } from 'date-fns'
 import WorldCurrencyMap from './world-currency-map'
@@ -28,8 +28,8 @@ function formatTime(date: Date): string {
     hour: 'numeric',
     minute: '2-digit',
     second: '2-digit',
-    hour12: true
-  })
+    hour12: true,
+  });
 }
 
 export default function CurrencyExchange() {
@@ -47,6 +47,7 @@ export default function CurrencyExchange() {
   const [btcAmount, setBtcAmount] = useState("1")
   const [selectedFiat, setSelectedFiat] = useState("USD")
   const [btcLoading, setBtcLoading] = useState(false)
+  const [currentTime, setCurrentTime] = useState<string | null>(null);
 
   // Load saved currencies from localStorage on initial render
   useEffect(() => {
@@ -55,6 +56,14 @@ export default function CurrencyExchange() {
       setSavedCurrencies(JSON.parse(saved))
     }
   }, [])
+
+  useEffect(() => {
+    const updateTime = () => setCurrentTime(formatTime(new Date()));
+    updateTime(); // Set the initial time
+    const intervalId = setInterval(updateTime, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
+
 
   // Save to localStorage whenever savedCurrencies changes
   useEffect(() => {
@@ -112,7 +121,7 @@ export default function CurrencyExchange() {
             const data = await fetchHistoricalRates(date, from);
             return { date, rate: data[to.toLowerCase()] || 0 };
           } catch (error) {
-            console.warn(`No data for ${date}:`,error);
+            console.warn(`No data for ${date}:`, error);
             return { date, rate: 0 };
           }
         })
@@ -120,7 +129,7 @@ export default function CurrencyExchange() {
 
       setChartData(historicalData);
     } catch (err) {
-      console.error('Error loading historical data:',err);
+      console.error('Error loading historical data:', err);
       setError('Failed to load historical data');
     } finally {
       setLoading(false);
@@ -174,7 +183,7 @@ export default function CurrencyExchange() {
 
     // Check if currency is already saved
     const existingIndex = savedCurrencies.findIndex(c => c.code === toCurrency)
-    
+
     if (existingIndex !== -1) {
       // Update existing entry
       const updatedSavedCurrencies = [...savedCurrencies]
@@ -190,7 +199,7 @@ export default function CurrencyExchange() {
     setSavedCurrencies(prev => prev.filter(c => c.code !== code))
   }
 
-  const isCurrencySaved = result && savedCurrencies.some(c => 
+  const isCurrencySaved = result && savedCurrencies.some(c =>
     c.code === toCurrency && Math.abs(c.amount - result.toAmount) < 0.01
   )
 
@@ -407,7 +416,7 @@ export default function CurrencyExchange() {
               <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-xl p-3">
                 <TrendingUp className="h-5 w-5" />
                 <div className="text-sm">
-                  Updated: {formatTime(new Date())}
+                  Updated: {currentTime || "Loading..."}
                 </div>
               </div>
             </CardContent>
@@ -440,7 +449,7 @@ export default function CurrencyExchange() {
                       </SelectTrigger>
                       <SelectContent className="max-h-[300px]">
                         <div className="p-2">
-                          <Input 
+                          <Input
                             placeholder="Search currencies..."
                             className="mb-2 currency-search"
                             onChange={(e) => {
@@ -455,10 +464,10 @@ export default function CurrencyExchange() {
                         </div>
                         <div className="overflow-y-auto max-h-[200px]">
                           {Object.entries(currencies)
-                            .sort(([,a], [,b]) => a.code.localeCompare(b.code))
+                            .sort(([, a], [, b]) => a.code.localeCompare(b.code))
                             .map(([code, currency]) => (
-                              <SelectItem 
-                                key={code} 
+                              <SelectItem
+                                key={code}
                                 value={currency.code}
                                 className="currency-item"
                               >
@@ -505,20 +514,20 @@ export default function CurrencyExchange() {
             <CardContent className="p-6 bg-gradient-to-br from-blue-500 to-blue-600">
               <Tabs defaultValue="saved" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 bg-white/10 mb-4">
-                  <TabsTrigger 
-                    value="saved" 
+                  <TabsTrigger
+                    value="saved"
                     className="data-[state=active]:bg-white/20 text-white"
                   >
                     Saved
                   </TabsTrigger>
-                  <TabsTrigger 
-                    value="popular" 
+                  <TabsTrigger
+                    value="popular"
                     className="data-[state=active]:bg-white/20 text-white"
                   >
                     Popular
                   </TabsTrigger>
                 </TabsList>
-                
+
                 <TabsContent value="saved" className="mt-0">
                   <div className="space-y-4">
                     {savedCurrencies.length === 0 ? (
@@ -528,8 +537,8 @@ export default function CurrencyExchange() {
                     ) : (
                       savedCurrencies.map((saved) => {
                         const currentValue = calculateCurrentValue(saved)
-                        const percentageChange = currentValue 
-                          ? ((currentValue - saved.amount) / saved.amount) * 100 
+                        const percentageChange = currentValue
+                          ? ((currentValue - saved.amount) / saved.amount) * 100
                           : 0
 
                         return (
@@ -545,11 +554,10 @@ export default function CurrencyExchange() {
                                 <div className="text-sm text-blue-100">
                                   {currencies[saved.code.toLowerCase()]?.name}
                                 </div>
-                                <div className={`text-xs ${
-                                  percentageChange > 0 ? 'text-green-400' : 
-                                  percentageChange < 0 ? 'text-red-400' : 
-                                  'text-blue-100'
-                                }`}>
+                                <div className={`text-xs ${percentageChange > 0 ? 'text-green-400' :
+                                    percentageChange < 0 ? 'text-red-400' :
+                                      'text-blue-100'
+                                  }`}>
                                   {percentageChange > 0 ? '↑' : percentageChange < 0 ? '↓' : ''}
                                   {Math.abs(percentageChange).toFixed(2)}%
                                 </div>

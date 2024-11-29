@@ -8,10 +8,21 @@ import { fetchExchangeRates, fetchAllCurrencies } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
+// List of invalid or ignored country codes
+const IGNORED_COUNTRY_CODES = [
+  "10", "eo", "av", "aa", "ap", "1i", "ak", "en", "an", "bc", "bu", "ce", "dy",
+  "dc", "df", "da", "cs", "ks", "fx", "fl", "fe", "ft", "ka", "kl", "kd", "kc",
+  "ic", "hb", "ho", "ok", "on", "op", "qt", "rp", "tu", "or", "qn", "rv", "su",
+  "ld", "sp", "wa", "xb", "le", "we", "mb", "xo", "xp", "xc", "ze", "xt", "zi",
+  "mi","xd","xe","xa","xl","wo","xr","xm"
+];
+
+const FALLBACK_FLAG_URL = "https://via.placeholder.com/40x30?text=No+Flag";
+
 const validateImage = async (url: string) => {
   try {
-    const response = await fetch(url, { mode: 'no-cors' });
-    return response.ok || response.type === 'opaque';
+    const response = await fetch(url, { mode: "no-cors" });
+    return response.ok || response.type === "opaque";
   } catch {
     return false;
   }
@@ -31,21 +42,23 @@ const CurrencyRatesTableCard = () => {
 
         const data = await Promise.all(
           Object.keys(currencies).map(async (code) => {
+            if (IGNORED_COUNTRY_CODES.includes(code.slice(0, 2).toLowerCase())) {
+              return null;
+            }
+
             const flagUrl = `https://flagcdn.com/w40/${code.slice(0, 2).toLowerCase()}.png`;
             const isValidFlag = await validateImage(flagUrl);
 
-            return isValidFlag
-              ? {
-                  flag: flagUrl,
-                  country: currencies[code]?.name || "Unknown",
-                  currency: currencies[code]?.name || "Unknown",
-                  rate: rates[code.toLowerCase()] || "N/A",
-                }
-              : null;
+            return {
+              flag: isValidFlag ? flagUrl : FALLBACK_FLAG_URL,
+              country: currencies[code]?.name || "Unknown",
+              currency: currencies[code]?.name || "Unknown",
+              rate: rates[code.toLowerCase()] || "N/A",
+            };
           })
         );
 
-        setRowData(data.filter((row) => row !== null)); // Filter out invalid flags
+        setRowData(data.filter((row) => row !== null)); // Filter out null entries
       } catch (error) {
         console.error("Failed to fetch currency rates", error);
       } finally {
