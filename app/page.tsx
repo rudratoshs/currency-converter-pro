@@ -70,6 +70,24 @@ export default function LandingPage() {
           </section>
 
           <CurrencyExchange />
+          {/* Ad Space 1 */}
+          <div className="my-16 text-center">
+            <div className="inline-block">
+              <script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+              ></script>
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block", textAlign: "center" }}
+                data-ad-client="ca-pub-xxxxxxxxxx" // Replace with your AdSense client ID
+                data-ad-slot="xxxxxxx" // Replace with your ad slot ID
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({ });</script>
+            </div>
+          </div>
 
           <CurrencyTable />
 
@@ -112,6 +130,26 @@ export default function LandingPage() {
               />
             </div>
           </section>
+
+          {/* Ad Space 2 */}
+          <div className="my-16 text-center">
+            <div className="inline-block">
+              <script
+                async
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+              ></script>
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block", textAlign: "center" }}
+                data-ad-client="ca-pub-xxxxxxxxxx"
+                data-ad-slot="xxxxxxx"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+              <script>(adsbygoogle = window.adsbygoogle || []).push({ });</script>
+            </div>
+          </div>
+
         </main>
 
         <footer id="about" className="bg-white mt-24 border-t border-pink-100">
