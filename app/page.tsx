@@ -11,45 +11,13 @@ import {
   HeadphonesIcon,
 } from "lucide-react";
 import CurrencyTable from "@/components/currency-table";
+import dynamic from "next/dynamic";
+const AdComponent = dynamic(() => import("@/components/AdComponent"), { ssr: false });
 import { useEffect } from "react";
-
-function AdComponent({ adSlot }: { adSlot: string }) {
-  useEffect(() => {
-    try {
-      if (window.adsbygoogle) {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      }
-    } catch (e) {
-      console.error("AdSense error:", e);
-    }
-  }, []);
-
-  return (
-    <div className="my-16 text-center">
-      <ins
-        className="adsbygoogle"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-4058854109696799"
-        data-ad-slot={adSlot}
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
-    </div>
-  );
-}
 
 export default function LandingPage() {
   return (
     <>
-      {/* Head Section for Meta Tags */}
-      <Head>
-        <meta name="google-adsense-account" content="ca-pub-4058854109696799" />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
-          crossOrigin="anonymous"
-        ></script>
-      </Head>
       <ParallaxProvider>
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
           <header className="bg-white/50 backdrop-blur-sm sticky top-0 z-50 border-b border-pink-100">
