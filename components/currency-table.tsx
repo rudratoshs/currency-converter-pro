@@ -10,8 +10,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const validateImage = async (url: string) => {
   try {
-    const response = await fetch(url, { method: "HEAD" });
-    return response.ok;
+    const response = await fetch(url, { mode: 'no-cors' });
+    return response.ok || response.type === 'opaque';
   } catch {
     return false;
   }

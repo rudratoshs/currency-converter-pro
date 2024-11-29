@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import CurrencyExchange from "@/components/currency-exchange";
 import Head from "next/head";
 import { ParallaxProvider, Parallax } from "react-scroll-parallax";
@@ -11,6 +11,32 @@ import {
   HeadphonesIcon,
 } from "lucide-react";
 import CurrencyTable from "@/components/currency-table";
+import { useEffect } from "react";
+
+function AdComponent({ adSlot }: { adSlot: string }) {
+  useEffect(() => {
+    try {
+      if (window.adsbygoogle) {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (e) {
+      console.error("AdSense error:", e);
+    }
+  }, []);
+
+  return (
+    <div className="my-16 text-center">
+      <ins
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client="ca-pub-4058854109696799"
+        data-ad-slot={adSlot}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      ></ins>
+    </div>
+  );
+}
 
 export default function LandingPage() {
   return (
@@ -18,9 +44,11 @@ export default function LandingPage() {
       {/* Head Section for Meta Tags */}
       <Head>
         <meta name="google-adsense-account" content="ca-pub-4058854109696799" />
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
+          crossOrigin="anonymous"
         ></script>
-
       </Head>
       <ParallaxProvider>
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
@@ -66,7 +94,7 @@ export default function LandingPage() {
 
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <section className="text-center mb-16">
-              <Parallax translateY={[-20, 20]} >
+              <Parallax translateY={[-20, 20]}>
                 <h1 className="text-5xl font-bold bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text mb-6">
                   Exchange Currencies with Confidence
                 </h1>
@@ -78,28 +106,14 @@ export default function LandingPage() {
             </section>
 
             <CurrencyExchange />
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799" ></script>
-            {/* Ad Space 1 */}
-            <div className="my-16 text-center">
-              <div className="inline-block">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
-                ></script>
-                <ins className="adsbygoogle"
-                  style={{ display: "block" }}
-                  data-ad-client="ca-pub-4058854109696799"
-                  data-ad-slot="2157275577"
-                  data-ad-format="auto"
-                  data-full-width-responsive="true"></ins>
-                <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({ });
-                </script>
-              </div>
-            </div>
+
+            {/* Ad Component for First Ad */}
+            <AdComponent adSlot="2157275577" />
 
             <CurrencyTable />
 
             <section id="features" className="mt-24">
-              <Parallax translateY={[20, -20]} >
+              <Parallax translateY={[20, -20]}>
                 <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
                   Why Choose CurrencySwap?
                 </h2>
@@ -138,23 +152,8 @@ export default function LandingPage() {
               </div>
             </section>
 
-            {/* Ad Space 2 */}
-            <div className="my-16 text-center">
-              <div className="inline-block">
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
-                ></script>
-                <ins className="adsbygoogle"
-                  style={{ display: "block" }}
-                  data-ad-client="ca-pub-4058854109696799"
-                  data-ad-slot="5852876375"
-                  data-ad-format="auto"
-                  data-full-width-responsive="true"></ins>
-                <script>
-                  (adsbygoogle = window.adsbygoogle || []).push({ });
-                </script>
-              </div>
-            </div>
-
+            {/* Ad Component for Second Ad */}
+            <AdComponent adSlot="5852876375" />
           </main>
 
           <footer id="about" className="bg-white mt-24 border-t border-pink-100">
