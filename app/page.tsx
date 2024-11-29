@@ -1,5 +1,4 @@
 "use client"
-import { Button } from "@/components/ui/button";
 import CurrencyExchange from "@/components/currency-exchange";
 import { ParallaxProvider, Parallax } from "react-scroll-parallax";
 import {
@@ -58,7 +57,7 @@ export default function LandingPage() {
 
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <section className="text-center mb-16">
-            <Parallax y={[-20, 20]} tagOuter="figure">
+            <Parallax translateY={[-20, 20]} >
               <h1 className="text-5xl font-bold bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text mb-6">
                 Exchange Currencies with Confidence
               </h1>
@@ -92,7 +91,7 @@ export default function LandingPage() {
           <CurrencyTable />
 
           <section id="features" className="mt-24">
-            <Parallax y={[20, -20]} tagOuter="figure">
+            <Parallax translateY={[20, -20]} >
               <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">
                 Why Choose CurrencySwap?
               </h2>

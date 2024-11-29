@@ -6,16 +6,16 @@ const API_DATE_URL = 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@';
  * @param {string} baseCurrency - The base currency code (e.g., "usd").
  * @returns {Promise<Record<string, number>>} - Exchange rates for the base currency.
  */
-export async function fetchExchangeRates(baseCurrency) {
+export async function fetchExchangeRates(baseCurrency: string): Promise<Record<string, number>> {
   try {
     const response = await fetch(`${API_BASE_URL}/currencies/${baseCurrency.toLowerCase()}.json`);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
     return data[baseCurrency.toLowerCase()];
   } catch (error) {
-    console.error('Error fetching exchange rates:', error.message || error);
+    console.error('Error fetching exchange rates:',error);
     throw new Error('Failed to fetch exchange rates');
   }
 }
@@ -37,7 +37,7 @@ export async function fetchAllCurrencies(): Promise<Record<string, { name: strin
     }
     return currenciesWithCodes;
   } catch (error) {
-    console.error('Error fetching currencies:', error.message || error);
+    console.error('Error fetching currencies:', error);
     throw new Error('Failed to fetch currencies');
   }
 }
@@ -48,9 +48,8 @@ export async function fetchAllCurrencies(): Promise<Record<string, { name: strin
  * @param {string} baseCurrency - The base currency code (e.g., "usd").
  * @returns {Promise<Record<string, number>>} - Historical exchange rates for the base currency.
  */
-export async function fetchHistoricalRates(date, baseCurrency) {
+export async function fetchHistoricalRates(date: string, baseCurrency: string): Promise<Record<string, number>> {
   try {
-    // Validate and format the date
     const formattedDate = date.split('T')[0];
     const today = new Date().toISOString().split('T')[0];
 
@@ -58,38 +57,27 @@ export async function fetchHistoricalRates(date, baseCurrency) {
       throw new Error('Cannot fetch rates for future dates.');
     }
 
-    // Fetch historical rates
     const url = `${API_DATE_URL}${formattedDate}/v1/currencies/${baseCurrency.toLowerCase()}.json`;
-    console.log('Fetching URL:', url); // Debugging URL
-
     const response = await fetch(url);
 
     if (!response.ok) {
-      console.error(`HTTP error! Status: ${response.status}. URL: ${url}`);
       throw new Error(`Failed to fetch historical rates. Status: ${response.status}`);
     }
 
     const data = await response.json();
-
-    // Ensure base currency exists in response
-    if (!data[baseCurrency.toLowerCase()]) {
-      throw new Error(`Base currency ${baseCurrency} not found in historical data.`);
-    }
-
     return data[baseCurrency.toLowerCase()];
   } catch (error) {
-    console.error('Error fetching historical rates:', error.message || error);
+    console.error('Error fetching historical rates:', error);
     throw new Error('Failed to fetch historical rates');
   }
 }
-
 
 /**
  * Fetch real-time exchange rates for a given base currency.
  * @param {string} baseCurrency - The base currency code (e.g., "usd").
  * @returns {Promise<Record<string, number>>} - Real-time exchange rates for the base currency.
  */
-export async function fetchRealTimeRates(baseCurrency) {
+export async function fetchRealTimeRates(baseCurrency: string): Promise<Record<string, number>> {
   try {
     const url = `${API_BASE_URL}/currencies/${baseCurrency.toLowerCase()}.json`;
     const response = await fetch(url);
@@ -101,7 +89,7 @@ export async function fetchRealTimeRates(baseCurrency) {
     const data = await response.json();
     return data[baseCurrency.toLowerCase()] || {};
   } catch (error) {
-    console.error('Error fetching real-time rates:', error.message || error);
+    console.error('Error fetching real-time rates:', error);
     throw new Error('Failed to fetch real-time rates');
   }
 }
@@ -112,7 +100,7 @@ export async function fetchRealTimeRates(baseCurrency) {
  * @param {string} targetCurrency - The target currency code (e.g., "eur").
  * @returns {Promise<{ date: string, rate: number }[]>} - Trend data for the last 7 days.
  */
-export async function fetch7DayTrend(baseCurrency, targetCurrency) {
+export async function fetch7DayTrend(baseCurrency: string, targetCurrency: string): Promise<{ date: string; rate: number }[]> {
   const today = new Date();
   const dates = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(today);
@@ -141,15 +129,25 @@ export async function fetch7DayTrend(baseCurrency, targetCurrency) {
 
     return trends.reverse(); // Reverse to show oldest first
   } catch (error) {
-    console.error('Error fetching 7-day trend:', error.message || error);
+    console.error('Error fetching 7-day trend:', error);
     throw new Error('Failed to fetch 7-day trend');
   }
+}
+
+interface Trend {
+  date: string;
+  rate: number;
+}
+
+interface CurrencyTrend {
+  currency: string;
+  trend: Trend[];
 }
 
 /**
  * Fetch trends for multiple currencies over the last 7 days.
  */
-export async function fetchBatchTrends(baseCurrency, targetCurrencies) {
+export async function fetchBatchTrends(baseCurrency: string, targetCurrencies: string[]): Promise<CurrencyTrend[]> {
   try {
     console.log(`Fetching trend for base: ${baseCurrency}, targets: ${targetCurrencies}`);
 
@@ -195,7 +193,7 @@ export async function fetchBTCRates(): Promise<Record<string, number>> {
     const data = await response.json();
     return data.btc;
   } catch (error) {
-    console.error('Error fetching BTC rates:', error.message || error);
+    console.error('Error fetching BTC rates:', error);
     throw new Error('Failed to fetch BTC rates');
   }
 }

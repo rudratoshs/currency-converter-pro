@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { LineChart, Line, ResponsiveContainer, YAxis, XAxis, Tooltip, CartesianGrid } from "recharts"
 import { fetchExchangeRates, fetchAllCurrencies, fetchHistoricalRates, fetchBTCRates } from "@/lib/api"
-import type { Currency, ConversionResult } from "@/types/currency"
+import type {ConversionResult } from "@/types/currency"
 import { motion, AnimatePresence } from "framer-motion"
 import { subDays, format } from 'date-fns'
 import WorldCurrencyMap from './world-currency-map'
@@ -112,7 +112,7 @@ export default function CurrencyExchange() {
             const data = await fetchHistoricalRates(date, from);
             return { date, rate: data[to.toLowerCase()] || 0 };
           } catch (error) {
-            console.warn(`No data for ${date}:`, error.message || error);
+            console.warn(`No data for ${date}:`,error);
             return { date, rate: 0 };
           }
         })
@@ -120,7 +120,7 @@ export default function CurrencyExchange() {
 
       setChartData(historicalData);
     } catch (err) {
-      console.error('Error loading historical data:', err.message || err);
+      console.error('Error loading historical data:',err);
       setError('Failed to load historical data');
     } finally {
       setLoading(false);
