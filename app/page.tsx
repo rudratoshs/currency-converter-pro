@@ -18,6 +18,9 @@ export default function LandingPage() {
       {/* Head Section for Meta Tags */}
       <Head>
         <meta name="google-adsense-account" content="ca-pub-4058854109696799" />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
+        ></script>
+
       </Head>
       <ParallaxProvider>
         <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
