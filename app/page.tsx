@@ -75,24 +75,21 @@ export default function LandingPage() {
             </section>
 
             <CurrencyExchange />
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799" ></script>
             {/* Ad Space 1 */}
             <div className="my-16 text-center">
               <div className="inline-block">
-                <script
-                  async
-                  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-                ></script>
                 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
                 ></script>
-                <ins
-                  className="adsbygoogle"
-                  style={{ display: "block", textAlign: "center" }}
-                  data-ad-client="ca-pub-xxxxxxxxxx" // Replace with your AdSense client ID
-                  data-ad-slot="xxxxxxx" // Replace with your ad slot ID
+                <ins className="adsbygoogle"
+                  style={{ display: "block" }}
+                  data-ad-client="ca-pub-4058854109696799"
+                  data-ad-slot="2157275577"
                   data-ad-format="auto"
-                  data-full-width-responsive="true"
-                ></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({ });</script>
+                  data-full-width-responsive="true"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({ });
+                </script>
               </div>
             </div>
 
@@ -141,19 +138,17 @@ export default function LandingPage() {
             {/* Ad Space 2 */}
             <div className="my-16 text-center">
               <div className="inline-block">
-                <script
-                  async
-                  src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4058854109696799"
                 ></script>
-                <ins
-                  className="adsbygoogle"
-                  style={{ display: "block", textAlign: "center" }}
-                  data-ad-client="ca-pub-xxxxxxxxxx"
-                  data-ad-slot="xxxxxxx"
+                <ins className="adsbygoogle"
+                  style={{ display: "block" }}
+                  data-ad-client="ca-pub-4058854109696799"
+                  data-ad-slot="5852876375"
                   data-ad-format="auto"
-                  data-full-width-responsive="true"
-                ></ins>
-                <script>(adsbygoogle = window.adsbygoogle || []).push({ });</script>
+                  data-full-width-responsive="true"></ins>
+                <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({ });
+                </script>
               </div>
             </div>
 
